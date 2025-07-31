@@ -51,11 +51,12 @@ elif grep -qi 'arch' /etc/os-release; then
 	fi
 fi
 
-sudo cp -rf /usr/share/X11/xorg.conf.d/10-evdev.conf /usr/share/X11/xorg.conf.d/45-evdev.conf
-sudo cp -f ./usr/99-calibration.conf-3508 /etc/X11/xorg.conf.d/99-calibration.conf
+sudo cp -f /usr/share/X11/xorg.conf.d/10-evdev.conf /usr/share/X11/xorg.conf.d/45-evdev.conf
+sudo cp -f ./usr/99-calibration.conf-3508 /usr/share/X11/xorg.conf.d/99-calibration.conf
 
 # Optionally, check if .dtbo was created
 if [ -f "$DTBO_FILE" ]; then
+	sudo sync
 	echo "Overlay applied successfully: $DTBO_FILE"
 	echo "Reboot system to apply changes."
 else

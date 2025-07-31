@@ -118,6 +118,23 @@ For ADS7846 touchscreen connection to Orange Pi Zero 2W:
 - Debian ARM
 - Arch Linux ARM
 
+## Tested Operating Systems
+
+| OS Distribution | Version | Kernel | Status | Notes |
+|----------------|---------|--------|--------|-------|
+| Orange Pi OS | Ubuntu 24.04 (Noble) | 6.1.x | ✅ Tested | **Recommended** - Successfully installed and working |
+| Armbian | Latest | 6.x.x | ⚠️ Issues | touchscreen not working |
+| Ubuntu ARM | 22.04 LTS | 5.15.0 | ❓ Not tested | No testing data available |
+| Debian ARM | 12 (Bookworm) | 6.1.0 | ❓ Not tested | No testing data available |
+| Arch Linux ARM | Latest | 6.4.x | ❓ Not tested | No testing data available |
+
+**Testing Results:**
+- ✅ **Fully working**: Confirmed by developer testing
+- ❌ **Known issues**: Problems identified during testing
+- 🔄 **Needs testing**: Community feedback welcome
+
+**Test Images Reference:** [Google Drive - Test Results](https://drive.google.com/drive/folders/1YMomjG-_jbfYcXZ0_D60XK93awgyjcVq?usp=drive_link)
+
 ## Contributing
 
 Feel free to submit issues and enhancement requests. When contributing:
