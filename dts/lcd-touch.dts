@@ -1,0 +1,43 @@
+/dts-v1/;
+/plugin/;
+
+/ {
+	compatible = "allwinner,sun50i-h616";
+
+	fragment@0 {
+		target = <&pio>;
+		__overlay__ {
+			ads7846_pins: ads7846_pins {
+				pins = "PI6";
+				function = "irq";
+			};
+		};
+	};
+
+	fragment@1 {
+		target = <&spi1>;
+		__overlay__ {
+			status = "okay";
+			lcdtouch@0 {
+				compatible = "ti,ads7846";
+				reg = <1>; /* Chip Select 1 */
+				status = "okay";
+				pinctrl-names = "default", "lcdtouchctrl";
+				pinctrl-1 = <&ads7846_pins>;
+				spi-max-frequency = <2000000>;
+				interrupt-parent = <&pio>;
+				interrupts = <8 6 2>; /* PI6 IRQ_TYPE_EDGE_FALLING */
+				pendown-gpio = <&pio 8 6 0>; /* PI6 */
+
+				/* driver defaults, optional */
+				ti,x-min = /bits/ 16 <0>;
+				ti,y-min = /bits/ 16 <0>;
+				ti,x-max = /bits/ 16 <0x0FFF>;
+				ti,y-max = /bits/ 16 <0x0FFF>;
+				ti,pressure-min = /bits/ 16 <0>;
+				ti,pressure-max = /bits/ 16 <0xFFFF>;
+				ti,x-plate-ohms = /bits/ 16 <400>;
+			};
+		};
+	};
+};
