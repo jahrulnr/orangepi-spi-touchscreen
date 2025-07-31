@@ -127,7 +127,7 @@ For ADS7846 touchscreen connection to Orange Pi Zero 2W:
 
 ## Supported Distributions
 
-- Orange Pi OS (Debian-based)
+- Orange Pi OS (Ubuntu-based)
 - Armbian
 - Ubuntu for ARM
 - Debian ARM
