@@ -19,10 +19,10 @@ The setup includes:
 
 ```
 ├── dts/
-│   └── lcd-touch.dts							# Device Tree overlay for touchscreen
+│   └── lcd-touch.dts				# Device Tree overlay for touchscreen
 ├── usr/
-│   └── 99-calibration.conf-3508  # X11 touchscreen calibration
-└── setup.sh											# Automated setup script
+│   └── 99-calibration.conf-3508	# X11 touchscreen calibration
+└── setup.sh						# Automated setup script
 ```
 
 ## Prerequisites
