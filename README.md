@@ -4,10 +4,12 @@ This repository contains configuration files and setup scripts for enabling ADS7
 
 ## Overview
 
-The setup includes:
-- Device Tree Overlay (DTS) for ADS7846 touchscreen controller
-- X11 calibration configuration for touch input
-- Setup script for easy installation
+This automated setup configures an ADS7846 touchscreen controller on Orange Pi Zero 2W via SPI interface. The solution includes:
+
+- **Device Tree Overlay**: Configures SPI1 interface with PI6 interrupt handling
+- **Intelligent Setup Script**: Auto-detects Orange Pi/Armbian tools and installs dependencies
+- **X11 Touch Calibration**: Pre-configured calibration matrix for immediate use
+- **Multi-Distribution Support**: Works with apt (Debian/Ubuntu) and pacman (Arch) package managers
 
 ## Hardware Compatibility
 
@@ -22,7 +24,8 @@ The setup includes:
 │   └── lcd-touch.dts               # Device Tree overlay for touchscreen
 ├── usr/
 │   └── 99-calibration.conf-3508    # X11 touchscreen calibration
-└── setup.sh                        # Automated setup script
+├── setup.sh                        # Automated setup script
+└── LICENSE                         # MIT License
 ```
 
 ## Prerequisites
@@ -60,15 +63,27 @@ The setup includes:
 The `lcd-touch.dts` file configures:
 - **SPI Interface**: SPI1 with Chip Select 1
 - **Interrupt Pin**: PI6 (GPIO pin for touch detection)
-- **SPI Frequency**: 2MHz
-- **Touch Resolution**: 4096x4096 (12-bit ADC)
-- **Pressure Range**: 0-65535
+- **SPI Frequency**: 2MHz (2,000,000 Hz)
+- **Touch Resolution**: X: 200-3900, Y: 200-3900 (12-bit ADC)
+- **Pressure Range**: 0-255
+- **X-Plate Resistance**: 150 ohms
+- **Interrupt Type**: Edge falling (IRQ_TYPE_EDGE_FALLING)
+
+### Setup Script Features
+
+The `setup.sh` script automatically:
+- **Detects overlay tools**: `orangepi-add-overlay` or `armbian-add-overlay`
+- **Applies device tree overlay**: Compiles and installs to `/boot/overlay-user/`
+- **Configures SPI parameters**: Sets `param_spidev_spi_cs=1` in boot environment
+- **Installs X11 packages**: `xserver-xorg-input-evdev` (Debian/Ubuntu) or `xf86-input-evdev` (Arch)
+- **Copies calibration files**: Places X11 configuration in `/usr/share/X11/xorg.conf.d/`
+- **Verifies installation**: Checks for successful overlay compilation
 
 ### Touchscreen Calibration
 
 The calibration file (`99-calibration.conf-3508`) includes:
 - **Calibration Matrix**: `3945 233 3939 183`
-- **Axis Swapping**: Enabled for proper orientation
+- **Axis Swapping**: Disabled (`SwapAxes = 0`)
 - **Device Matching**: Targets "ADS7846 Touchscreen"
 
 ## Customization
@@ -87,7 +102,7 @@ To recalibrate the touchscreen:
    xinput_calibrator
    ```
 
-3. **Update the calibration file** with new values in `/etc/X11/xorg.conf.d/99-calibration.conf`
+3. **Update the calibration file** with new values in `/usr/share/X11/xorg.conf.d/99-calibration.conf`
 
 ### Changing SPI Settings
 
@@ -145,7 +160,7 @@ Feel free to submit issues and enhancement requests. When contributing:
 
 ## License
 
-This project is provided as-is for educational and development purposes.
+This project is licensed under the MIT License - see the [LICENSE](LICENSE) file for details.
 
 ## Acknowledgments
 
